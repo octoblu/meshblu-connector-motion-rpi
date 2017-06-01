@@ -1,5 +1,5 @@
 box:
-  id: octoblu/arm-node-compile
+  id: octoblu/arm-node-compile:dev
   cmd: /bin/bash
 build:
   steps:
