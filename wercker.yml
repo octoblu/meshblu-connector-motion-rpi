@@ -23,7 +23,6 @@ build:
         cd PIGPIO
         make
         make install
-
     - script:
         name: compile
         code: |
