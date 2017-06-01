@@ -16,14 +16,6 @@ build:
           echo "$(git describe --tags)" > "${WERCKER_OUTPUT_DIR}/VERSION"
           echo "VERSION: $(cat "${WERCKER_OUTPUT_DIR}/VERSION")"
     - script:
-      name: echo install pigpio
-      code: |
-        wget abyz.co.uk/rpi/pigpio/pigpio.zip
-        unzip pigpio.zip
-        cd PIGPIO
-        make
-        make install
-    - script:
         name: compile
         code: |
           compile "$WERCKER_SOURCE_DIR" "$WERCKER_OUTPUT_DIR"

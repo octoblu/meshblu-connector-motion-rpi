@@ -1,6 +1,6 @@
 {
   "name": "meshblu-connector-motion-rpi",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Meshblu Connector ",
   "homepage": "https://github.com/octoblu/meshblu-connector-motion-rpi",
   "bugs": "https://github.com/octoblu/meshblu-connector-motion-rpi/issues",
