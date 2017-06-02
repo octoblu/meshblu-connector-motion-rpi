@@ -804,6 +804,13 @@ meshblu-config@^7.0.0:
     lodash "^3.9.1"
     meshblu-encryption "^2.0.1"
 
+meshblu-config@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/meshblu-config/-/meshblu-config-8.0.1.tgz#eaf09500e034401f9d8fc1ad26ea7d6ae0d9eba7"
+  dependencies:
+    lodash "^4.17.4"
+    meshblu-encryption "^3.0.1"
+
 meshblu-connector-runner@^10.5.3:
   version "10.8.5"
   resolved "https://registry.yarnpkg.com/meshblu-connector-runner/-/meshblu-connector-runner-10.8.5.tgz#0ed950483a7a4d7b83c4227310d0a39e3b925870"
@@ -841,6 +848,13 @@ meshblu-encryption@^2.0.1:
     coffee-script "^1.10.0"
     lodash "^4.6.1"
     node-rsa "^0.3.2"
+
+meshblu-encryption@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/meshblu-encryption/-/meshblu-encryption-3.0.1.tgz#490647a933973a2e8f4e3513b069b8ff487df510"
+  dependencies:
+    lodash "^4.6.1"
+    node-rsa "^0.4.2"
 
 meshblu-http@^9.8.0, meshblu-http@^9.9.0:
   version "9.9.0"
