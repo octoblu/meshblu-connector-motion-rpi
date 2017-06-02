@@ -53,7 +53,7 @@ class Connector extends EventEmitter
   handleReady: () =>
     @motion = new five.Motion 'P1-13'
     @motion.on 'calibrated', () => debug 'Motion Sensor Calibrated'
-    @motion.change 'change', @updateValidUntil
+    @motion.on 'change', @updateValidUntil
 
   updateValidUntil: () =>
     @validUtil = moment().add(10, 'minutes').utc()
