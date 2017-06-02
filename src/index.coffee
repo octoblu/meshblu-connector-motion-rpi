@@ -1,7 +1,5 @@
 {EventEmitter}       = require 'events'
 debug                = require('debug')('meshblu-connector-motion-rpi:index')
-MeshbluConfig        = require 'meshblu-config'
-ResilientMeshbluHttp = require 'resilient-meshblu-http'
 five                 = require 'johnny-five'
 Raspi                = require 'raspi-io'
 MeshbluSocketIO = require('meshblu')
