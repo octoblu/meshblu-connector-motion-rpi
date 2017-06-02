@@ -36,7 +36,8 @@
     "meshblu-config": "^7.0.0",
     "meshblu-connector-runner": "^10.5.3",
     "meshblu-connector-schema-generator": "^2.1.0",
-    "raspi-io": "^8.0.1"
+    "raspi-io": "^8.0.1",
+    "simple-meshblu-message-as": "^3.0.1"
   },
   "meshbluConnector": {
     "githubSlug": "octoblu/meshblu-connector-motion-rpi"
