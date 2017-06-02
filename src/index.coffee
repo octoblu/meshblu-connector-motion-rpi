@@ -2,9 +2,7 @@
 debug                = require('debug')('meshblu-connector-motion-rpi:index')
 five                 = require 'johnny-five'
 Raspi                = require 'raspi-io'
-MessageAs            = require 'simple-meshblu-message-as'
 moment               = require 'moment'
-Meshbluconfig       = require 'meshblu-config'
 MeshbluSocketIO      = require('meshblu')
 _ = require 'lodash'
 
@@ -20,14 +18,6 @@ class Connector extends EventEmitter
       uuid: 'c15a9222-1f4e-4724-927f-a4390654fc57',
       token: '4401761cd274e79139ae4ec057ac5a2dd22dee2b'
     })
-    
-    meshbluConfig = new Meshbluconfig {
-      resolveSrv: true,
-      uuid: 'c15a9222-1f4e-4724-927f-a4390654fc57',
-      token: '4401761cd274e79139ae4ec057ac5a2dd22dee2b'
-    }
-
-    @messageAs = new MessageAs meshbluConfig
 
     @meshblu.on 'ready', () => @watchForMeeting()
     @meshblu.connect()
@@ -56,7 +46,7 @@ class Connector extends EventEmitter
           '$ref': "meshbludevice://c15a9222-1f4e-4724-927f-a4390654fc57"
     }
     console.log 'End Meeting message: ', message
-    @messageAs.sendWith { message, uuid: @userUuid, token: @userToken }, (error) =>
+    @meshblu.message { message }, (error) =>
       console.log 'Error ending meeting: ', error if error?
       return
 
