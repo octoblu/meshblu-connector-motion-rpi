@@ -4,6 +4,7 @@ five                 = require 'johnny-five'
 Raspi                = require 'raspi-io'
 MessageAs            = require 'simple-meshblu-message-as'
 moment               = require 'moment'
+Meshbluconfig       = require 'meshblu-config'
 MeshbluSocketIO      = require('meshblu')
 _ = require 'lodash'
 
@@ -13,16 +14,20 @@ class Connector extends EventEmitter
     @validUntil = moment().utc()
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
+
     @meshblu = new MeshbluSocketIO({
       resolveSrv: true,
       uuid: 'c15a9222-1f4e-4724-927f-a4390654fc57',
       token: '4401761cd274e79139ae4ec057ac5a2dd22dee2b'
     })
-    @messageAs = new MessageAs {
+    
+    meshbluConfig = new Meshbluconfig {
       resolveSrv: true,
       uuid: 'c15a9222-1f4e-4724-927f-a4390654fc57',
       token: '4401761cd274e79139ae4ec057ac5a2dd22dee2b'
     }
+
+    @messageAs = new MessageAs meshbluConfig
 
     @meshblu.on 'ready', () => @watchForMeeting()
     @meshblu.connect()
