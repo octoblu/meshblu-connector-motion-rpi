@@ -1,6 +1,6 @@
 {
   "name": "meshblu-connector-motion-rpi",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Meshblu Connector ",
   "homepage": "https://github.com/octoblu/meshblu-connector-motion-rpi",
   "bugs": "https://github.com/octoblu/meshblu-connector-motion-rpi/issues",
@@ -32,6 +32,7 @@
     "debug": "^2.6.3",
     "fs-cson": "^0.3.2",
     "johnny-five": "^0.10.13",
+    "meshblu": "^3.0.5",
     "meshblu-config": "^7.0.0",
     "meshblu-connector-runner": "^10.5.3",
     "meshblu-connector-schema-generator": "^2.1.0",
