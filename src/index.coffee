@@ -9,7 +9,7 @@ _ = require 'lodash'
 
 class Connector extends EventEmitter
   constructor: ->
-    @validUntil = moment().utc()
+    @validUtil = moment().add(10, 'minutes').utc()
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -29,6 +29,7 @@ class Connector extends EventEmitter
   checkMeeting:(event) =>
     currentMeeting = _.get event, 'genisys.currentMeeting'
     if currentMeeting?
+      console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
       if moment(@validUntil).isBefore(moment().utc())
         meetingId = _.get currentMeeting, 'meetingId'
