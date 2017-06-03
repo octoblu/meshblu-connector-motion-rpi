@@ -1,12 +1,12 @@
-MeshbluHttp      = require('meshblu')
-meetingId = "88a77033-acfb-4b5f-8bc3-2e69bf87a79f"
+MeshbluHttp      = require('meshblu-http')
+meetingId = "5db6d3c0-0b7b-4d7e-ad2a-d17f2f4b9fa3"
 console.log "====================================="
 console.log 'Ending meeting with meetingId:', meetingId
 userMeshblu = new MeshbluHttp {
   resolveSrv: true,
   domain: 'octoblu.com',
-  uuid: '448d3a5b-4b33-44de-9bea-ee0af1dbe77a',
-  token: '20896bc678999fd13e52dbd0fd40c1970d01151c'
+  uuid: 'a11d2398-267d-4a80-99ed-70ca9771363e',
+  token: 'a6f0b7ea3005dfb110a6ae8827a74f95c9ce104c'
 }
 message = {
   devices: [ "*" ]
