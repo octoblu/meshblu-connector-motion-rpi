@@ -30,16 +30,11 @@ class Connector extends EventEmitter
 
   checkMeeting:(event) =>
     currentMeeting = _.get event, 'genisys.currentMeeting'
-    meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
       console.log "Valid Until: #{@validUntil}"
-
-      # if (moment().isBetween(meetingStartTime, meetingStartTime.add(@limitMinutes, 'minute')))
-      #   @validUntil = meetingStartTime.add(@limitMinutes, 'minute')
-      #   console.log "Inside initial valid until block: #{@validUntil} and meetingStartTime: #{meetingStartTime}"
-
+      meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
       noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute')
       if moment().isBefore(noShowLimit)
         @validUntil = noShowLimit
