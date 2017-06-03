@@ -42,8 +42,8 @@ class Connector extends EventEmitter
       if (moment(@validUntil).isBefore(moment().utc()) && moment().utc().isAfter(noShowLimit))
         meetingId = _.get currentMeeting, 'meetingId'
         console.log "====================================="
+        console.log "Ending meeting, validUntil: ", moment(@validUntil).toISOString()
         console.log "meetingStartTime: #{meetingStartTime} and No show limit :#{noShowLimit.toISOString()}"
-        console.log "Ending the meeting because : \n validUntil:#{@validUntil} and current time: #{moment()}\n"
         @endMeeting meetingId
 
   endMeeting: (meetingId) =>
@@ -74,7 +74,7 @@ class Connector extends EventEmitter
 
   updateValidUntil: () =>
     @validUtil = moment().add(@limitMinutes, 'minutes').utc()
-    console.log 'updateValidUntil Valid Until : ', @validUtil
+    console.log 'updateValidUntil Valid Until : ', @validUtil.toISOString()
 
   isOnline: (callback) =>
     callback null, running: true
