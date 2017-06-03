@@ -36,6 +36,7 @@ class Connector extends EventEmitter
         @endMeeting meetingId
 
   endMeeting: (meetingId) =>
+    console.log "====================================="
     console.log 'Ending meeting with meetingId:', meetingId
     message = {
       devices: [ "*" ]
