@@ -4,8 +4,8 @@ five                 = require 'johnny-five'
 Raspi                = require 'raspi-io'
 moment               = require 'moment'
 MeshbluSocketIO      = require('meshblu')
+MeshbluHttp          = require ('meshblu-http')
 _ = require 'lodash'
-
 
 class Connector extends EventEmitter
   constructor: ->
@@ -38,11 +38,12 @@ class Connector extends EventEmitter
   endMeeting: (meetingId) =>
     console.log "====================================="
     console.log 'Ending meeting with meetingId:', meetingId
-    customerMeshblu = new MeshbluSocketIO({
+    customerMeshblu = new MeshbluHttp({
       resolveSrv: true,
       uuid: '448d3a5b-4b33-44de-9bea-ee0af1dbe77a',
       token: '20896bc678999fd13e52dbd0fd40c1970d01151c'
     })
+    customerMeshblu.connect()
     message = {
       devices: [ "*" ]
       metadata:
