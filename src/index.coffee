@@ -39,7 +39,7 @@ class Connector extends EventEmitter
 
       if moment(@validUntil).isBefore(moment().utc())
         meetingId = _.get currentMeeting, 'meetingId'
-        console.log "Ending the meeting because : \nvalidUntil:#{validUntil} and current time: #{moment()}\n"
+        console.log "Ending the meeting because : \n validUntil:#{@validUntil} and current time: #{moment()}\n"
         @endMeeting meetingId
 
   endMeeting: (meetingId) =>
