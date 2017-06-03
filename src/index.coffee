@@ -28,7 +28,8 @@ class Connector extends EventEmitter
 
   checkMeeting:(event) =>
     currentMeeting = _.get event, 'genisys.currentMeeting'
-    meetingStartTime = moment(_.get event, 'genisys.currentMeeting.startTime').utc()
+    meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
+    meetingStartTime = moment(meetingStartTime).utc()
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
@@ -66,7 +67,7 @@ class Connector extends EventEmitter
 
   handleReady: () =>
     @motion = new five.Motion 'P1-13'
-    @motion.on 'calibrated', () => debug 'Motion Sensor Calibrated'
+    @motion.on 'calibrated', () => console.log 'Motion Sensor Calibrated'
     @motion.on 'change', @updateValidUntil
 
   updateValidUntil: () =>
