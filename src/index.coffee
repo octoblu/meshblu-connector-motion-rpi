@@ -9,7 +9,7 @@ _ = require 'lodash'
 
 class Connector extends EventEmitter
   constructor: ->
-    @validUtil = moment().add(1, 'minutes').utc()
+    @validUtil = moment().utc().add(1, 'minutes')
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
