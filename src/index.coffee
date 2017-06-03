@@ -10,7 +10,7 @@ _ = require 'lodash'
 class Connector extends EventEmitter
   constructor: ->
     @limitMinutes = 2
-    @validUntil = moment().utc().add(@limitMinutes, 'minute').toISOString()
+    @validUntil = moment().utc().add(@limitMinutes, 'minute')
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -33,9 +33,10 @@ class Connector extends EventEmitter
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
+      console.log "validUntil as of now is : ", @validUntil.toISOString()
       meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
-      noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute').toISOString()
-      if (moment().isBefore(moment(noShowLimit)) && moment(@validUntil).isBefore(moment()))
+      noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minutes')
+      if (moment().isBefore(noShowLimit) && moment(@validUntil).isBefore(moment()))
         @validUntil = noShowLimit
         console.log "Initializing valid until to no show limit as : #{@validUntil.toISOString()}"
 
