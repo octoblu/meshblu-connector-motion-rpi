@@ -28,9 +28,14 @@ class Connector extends EventEmitter
 
   checkMeeting:(event) =>
     currentMeeting = _.get event, 'genisys.currentMeeting'
+    meetingStartTime = moment(_.get event, 'genisys.currentMeeting.startTime').utc()
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
+
+      if (moment().isBetween(meetingStartTime, meetingStartTime.add(1, 'minute')))
+        @validUntil = meetingStartTime.add(1, 'minute')
+
       if moment(@validUntil).isBefore(moment().utc())
         meetingId = _.get currentMeeting, 'meetingId'
         @endMeeting meetingId
