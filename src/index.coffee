@@ -43,7 +43,6 @@ class Connector extends EventEmitter
       uuid: '448d3a5b-4b33-44de-9bea-ee0af1dbe77a',
       token: '20896bc678999fd13e52dbd0fd40c1970d01151c'
     })
-    @customerMeshblu.on 'ready'
     @customerMeshblu.connect()
     message = {
       devices: [ "*" ]
