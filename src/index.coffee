@@ -43,7 +43,8 @@ class Connector extends EventEmitter
         meetingId = _.get currentMeeting, 'meetingId'
         console.log "====================================="
         console.log "Ending meeting, validUntil: ", moment(@validUntil).toISOString()
-        console.log "meetingStartTime: #{meetingStartTime} and No show limit :#{noShowLimit.toISOString()}"
+        console.log "Ending meeting, current time: ", moment().toISOString()
+        console.log "meetingStartTime: #{meetingStartTime} and No show limit :#{noShowLimit.toISOString()}" if moment().utc().isAfter(noShowLimit)
         @endMeeting meetingId
 
   endMeeting: (meetingId) =>
