@@ -40,8 +40,8 @@ class Connector extends EventEmitter
     console.log 'Ending meeting with meetingId:', meetingId
     @userMeshblu = new MeshbluHttp {
       resolveSrv: true,
-      uuid: '448d3a5b-4b33-44de-9bea-ee0af1dbe77a',
-      token: '20896bc678999fd13e52dbd0fd40c1970d01151c'
+      uuid: 'a11d2398-267d-4a80-99ed-70ca9771363e',
+      token: '706bfc2e00e9734714c13e87845fa4d54ff53b15'
     }
     message = {
       devices: [ "*" ]
