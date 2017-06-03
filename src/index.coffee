@@ -29,22 +29,23 @@ class Connector extends EventEmitter
   checkMeeting:(event) =>
     currentMeeting = _.get event, 'genisys.currentMeeting'
     meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
-    meetingStartTime = moment(meetingStartTime).utc()
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
 
-      if (moment().isBetween(meetingStartTime, meetingStartTime.add(1, 'minute')))
-        @validUntil = meetingStartTime.add(1, 'minute')
-        console.log "Inside initial valid until block: #{@validUntil} and meetingStartTime: #{meetingStartTime}"
+      # if (moment().isBetween(meetingStartTime, meetingStartTime.add(1, 'minute')))
+      #   @validUntil = meetingStartTime.add(1, 'minute')
+      #   console.log "Inside initial valid until block: #{@validUntil} and meetingStartTime: #{meetingStartTime}"
 
-      if moment(@validUntil).isBefore(moment().utc())
+      noShowLimit = moment(meetingStartTime).utc().add(1, 'minute')
+      console.log 'No show limit : ', noShowLimit.toISOString()
+      if moment(@validUntil).isBefore(moment().utc() && moment().isAfter(noShowLimit))
         meetingId = _.get currentMeeting, 'meetingId'
+        console.log "====================================="
         console.log "Ending the meeting because : \n validUntil:#{@validUntil} and current time: #{moment()}\n"
         @endMeeting meetingId
 
   endMeeting: (meetingId) =>
-    console.log "====================================="
     console.log 'Ending meeting with meetingId:', meetingId
     @userMeshblu = new MeshbluHttp {
       resolveSrv: true,
