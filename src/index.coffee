@@ -24,6 +24,7 @@ class Connector extends EventEmitter
     @meshblu.subscribe({uuid: 'c15a9222-1f4e-4724-927f-a4390654fc57'})
 
   watchForMeeting: () =>
+    console.log 'watchForMeeting'
     @meshblu.on 'config', (event) => @checkMeeting event
 
   checkMeeting:(event) =>
@@ -42,7 +43,7 @@ class Connector extends EventEmitter
         @validUntil = noShowLimit
         console.log "Initializing valid until for: #{@validUntil}"
 
-      if (@validUntil.isBefore(moment().utc() && moment().utc().isAfter(noShowLimit)))
+      if (moment(@validUntil).isBefore(moment().utc() && moment().utc().isAfter(noShowLimit)))
         meetingId = _.get currentMeeting, 'meetingId'
         console.log "====================================="
         console.log "meetingStartTime: #{meetingStartTime} and No show limit :#{noShowLimit.toISOString()}"
