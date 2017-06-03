@@ -37,7 +37,7 @@ class Connector extends EventEmitter
       noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute')
       if moment().isBefore(noShowLimit)
         @validUntil = noShowLimit
-        console.log "Initializing valid until for: #{@validUntil}"
+        console.log "Initializing valid until for: #{@validUntil.toISOString()}"
 
       if (moment(@validUntil).isBefore(moment().utc()) && moment().utc().isAfter(noShowLimit))
         meetingId = _.get currentMeeting, 'meetingId'
