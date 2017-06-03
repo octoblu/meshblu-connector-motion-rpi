@@ -9,7 +9,7 @@ _ = require 'lodash'
 
 class Connector extends EventEmitter
   constructor: ->
-    @validUtil = moment().add(10, 'minutes').utc()
+    @validUtil = moment().add(1, 'minutes').utc()
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -63,7 +63,7 @@ class Connector extends EventEmitter
     @motion.on 'change', @updateValidUntil
 
   updateValidUntil: () =>
-    @validUtil = moment().add(10, 'minutes').utc()
+    @validUtil = moment().add(1, 'minutes').utc()
     console.log 'Valid Until : ', @validUtil
 
   isOnline: (callback) =>
