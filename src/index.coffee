@@ -9,7 +9,7 @@ _ = require 'lodash'
 
 class Connector extends EventEmitter
   constructor: ->
-    @validUtil = moment().utc().add(1, 'minutes')
+    @validUtil = moment().utc().add(1, 'minute')
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -33,6 +33,7 @@ class Connector extends EventEmitter
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
+      console.log "Valid Until: #{@validUntil}"
 
       # if (moment().isBetween(meetingStartTime, meetingStartTime.add(1, 'minute')))
       #   @validUntil = meetingStartTime.add(1, 'minute')
@@ -78,7 +79,7 @@ class Connector extends EventEmitter
 
   updateValidUntil: () =>
     @validUtil = moment().add(1, 'minutes').utc()
-    console.log 'Valid Until : ', @validUtil
+    console.log 'updateValidUntil Valid Until : ', @validUtil
 
   isOnline: (callback) =>
     callback null, running: true
