@@ -38,12 +38,13 @@ class Connector extends EventEmitter
   endMeeting: (meetingId) =>
     console.log "====================================="
     console.log 'Ending meeting with meetingId:', meetingId
-    customerMeshblu = new MeshbluHttp({
+    @customerMeshblu = new MeshbluHttp({
       resolveSrv: true,
       uuid: '448d3a5b-4b33-44de-9bea-ee0af1dbe77a',
       token: '20896bc678999fd13e52dbd0fd40c1970d01151c'
     })
-    customerMeshblu.connect()
+    @customerMeshblu.on 'ready'
+    @customerMeshblu.connect()
     message = {
       devices: [ "*" ]
       metadata:
@@ -54,7 +55,7 @@ class Connector extends EventEmitter
           '$ref': "meshbludevice://c15a9222-1f4e-4724-927f-a4390654fc57"
     }
     console.log 'End Meeting message: ', message
-    customerMeshblu.message { message }, (error) =>
+    @customerMeshblu.message { message }, (error) =>
       console.log 'Error ending meeting: ', error if error?
       return
 
