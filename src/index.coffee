@@ -33,7 +33,6 @@ class Connector extends EventEmitter
     if currentMeeting?
       console.log "====================================="
       console.log "curentMeeting found : ", currentMeeting
-      console.log "Valid Until: #{@validUntil}"
       meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
       noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute')
       if moment().isBefore(noShowLimit)
