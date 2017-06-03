@@ -10,7 +10,7 @@ _ = require 'lodash'
 class Connector extends EventEmitter
   constructor: ->
     @limitMinutes = 2
-    @validUtil = moment().utc().add(@limitMinutes, 'minute')
+    @validUtil = ''#moment().utc().add(@limitMinutes, 'minute')
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -71,7 +71,7 @@ class Connector extends EventEmitter
   handleReady: () =>
     @motion = new five.Motion 'P1-13'
     @motion.on 'calibrated', () => console.log 'Motion Sensor Calibrated'
-    @motion.on 'change', @updateValidUntil
+    @motion.on 'change', @checkMeeting #@updateValidUntil
 
   updateValidUntil: () =>
     @validUtil = moment().add(@limitMinutes, 'minutes').utc()
