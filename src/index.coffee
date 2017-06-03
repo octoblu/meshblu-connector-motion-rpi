@@ -35,11 +35,11 @@ class Connector extends EventEmitter
       console.log "curentMeeting found : ", currentMeeting
       meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
       noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute').toISOString()
-      if (moment().isBefore(moment(noShowLimit)) && moment(@validUntil.isBefore(moment())))
+      if (moment().isBefore(moment(noShowLimit)) && moment(@validUntil).isBefore(moment()))
         @validUntil = noShowLimit
         console.log "Initializing valid until to no show limit as : #{@validUntil.toISOString()}"
 
-      if (moment(@validUntil.isBefore(moment().utc())) && moment().utc().isAfter(noShowLimit))
+      if (moment(@validUntil).isBefore(moment().utc()) && moment().utc().isAfter(noShowLimit))
         meetingId = _.get currentMeeting, 'meetingId'
         console.log "====================================="
         console.log "Ending meeting, validUntil: ", moment(@validUntil.toISOString())
