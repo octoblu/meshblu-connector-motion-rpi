@@ -9,7 +9,8 @@ _ = require 'lodash'
 
 class Connector extends EventEmitter
   constructor: ->
-    @validUtil = moment().utc().add(1, 'minute')
+    @limitMinutes = 2
+    @validUtil = moment().utc().add(@limitMinutes, 'minute')
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -35,11 +36,11 @@ class Connector extends EventEmitter
       console.log "curentMeeting found : ", currentMeeting
       console.log "Valid Until: #{@validUntil}"
 
-      # if (moment().isBetween(meetingStartTime, meetingStartTime.add(1, 'minute')))
-      #   @validUntil = meetingStartTime.add(1, 'minute')
+      # if (moment().isBetween(meetingStartTime, meetingStartTime.add(@limitMinutes, 'minute')))
+      #   @validUntil = meetingStartTime.add(@limitMinutes, 'minute')
       #   console.log "Inside initial valid until block: #{@validUntil} and meetingStartTime: #{meetingStartTime}"
 
-      noShowLimit = moment(meetingStartTime).utc().add(1, 'minute')
+      noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute')
       if moment().isBefore(noShowLimit)
         @validUntil = noShowLimit
         console.log "Initializing valid until for: #{@validUntil}"
@@ -78,7 +79,7 @@ class Connector extends EventEmitter
     @motion.on 'change', @updateValidUntil
 
   updateValidUntil: () =>
-    @validUtil = moment().add(1, 'minutes').utc()
+    @validUtil = moment().add(@limitMinutes, 'minutes').utc()
     console.log 'updateValidUntil Valid Until : ', @validUtil
 
   isOnline: (callback) =>
