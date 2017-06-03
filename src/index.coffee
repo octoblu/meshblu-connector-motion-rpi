@@ -10,7 +10,7 @@ _ = require 'lodash'
 class Connector extends EventEmitter
   constructor: ->
     @limitMinutes = 2
-    @validUtil = ''#moment().utc().add(@limitMinutes, 'minute')
+    @validUntil = moment().utc().add(@limitMinutes, 'minute')
     @board = new five.Board {io: new Raspi(),repl: false,debug: false}
     @board.on 'ready', @handleReady
 
@@ -35,17 +35,18 @@ class Connector extends EventEmitter
       console.log "curentMeeting found : ", currentMeeting
       meetingStartTime = _.get event, 'genisys.currentMeeting.startTime'
       noShowLimit = moment(meetingStartTime).utc().add(@limitMinutes, 'minute')
-      if (moment().isBefore(noShowLimit) && moment(@getValidUntil()).isBefore(moment()))
-        @updateValidUntil()
-        console.log "Initializing valid until to no show limit as : #{@getValidUntil().toISOString()}"
+      if (moment().isBefore(noShowLimit) && moment(@validUntil.isBefore(moment())))
+        @validUntil = noShowLimit
+        console.log "Initializing valid until to no show limit as : #{@validUntil.toISOString()}"
 
-      if (moment(@getValidUntil()).isBefore(moment().utc()) && moment().utc().isAfter(noShowLimit))
+      if (moment(@validUntil.isBefore(moment().utc())) && moment().utc().isAfter(noShowLimit))
         meetingId = _.get currentMeeting, 'meetingId'
         console.log "====================================="
-        console.log "Ending meeting, validUntil: ", moment(@getValidUntil()).toISOString()
+        console.log "Ending meeting, validUntil: ", moment(@validUntil.toISOString())
         console.log "Ending meeting, current time: ", moment().toISOString()
         console.log "meetingStartTime: #{meetingStartTime} and No show limit :#{noShowLimit.toISOString()}" if moment().utc().isAfter(noShowLimit)
         @endMeeting meetingId
+
 
   endMeeting: (meetingId) =>
     console.log 'Ending meeting with meetingId:', meetingId
@@ -74,12 +75,9 @@ class Connector extends EventEmitter
     @motion.on 'change', @updateValidUntil
 
   updateValidUntil: () =>
-    @validUtil = moment().add(@limitMinutes, 'minutes').utc()
-    console.log 'updateValidUntil Valid Until : ', @validUtil.toISOString()
+    @validUntil = moment().add(@limitMinutes, 'minutes').utc()
+    console.log 'updateValidUntil Valid Until : ', @validUntil.toISOString()
     return
-
-  getValidUntil: () =>
-    return @validUtil
 
   isOnline: (callback) =>
     callback null, running: true
