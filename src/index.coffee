@@ -43,14 +43,14 @@ class Connector extends EventEmitter
       if (moment(@validUntil).isBefore(moment().utc()) && moment().utc().isAfter(noShowLimit))
         meetingId = _.get currentMeeting, 'meetingId'
         console.log "====================================="
-        console.log "Ending meeting, validUntil: ", moment(@validUntil.toISOString())
-        console.log "Ending meeting, current time: ", moment().toISOString()
+        console.log "Leaving meeting, validUntil: ", moment(@validUntil.toISOString())
+        console.log "Leaving meeting, current time: ", moment().toISOString()
         console.log "meetingStartTime: #{meetingStartTime} and No show limit :#{noShowLimit.toISOString()}" if moment().utc().isAfter(noShowLimit)
         @endMeeting meetingId
 
 
   endMeeting: (meetingId) =>
-    console.log 'Ending meeting with meetingId:', meetingId
+    console.log 'Leaving meeting with meetingId:', meetingId
     @userMeshblu = new MeshbluHttp {
       resolveSrv: true,
       uuid: 'a11d2398-267d-4a80-99ed-70ca9771363e',
@@ -65,9 +65,9 @@ class Connector extends EventEmitter
         room:
           '$ref': "meshbludevice://c15a9222-1f4e-4724-927f-a4390654fc57"
     }
-    console.log 'End Meeting message: ', message
+    console.log 'Leave Meeting message: ', message
     @userMeshblu.message message, (error) =>
-      console.log 'Error ending meeting: ', error if error?
+      console.log 'Error leaving meeting: ', error if error?
       return
 
   handleReady: () =>
