@@ -59,7 +59,7 @@ class Connector extends EventEmitter
     message = {
       devices: [ "*" ]
       metadata:
-        jobType: "end-meeting"
+        jobType: "leave-meeting"
       data:
         meetingId: meetingId
         room:
