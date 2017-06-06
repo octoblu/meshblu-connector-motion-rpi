@@ -1,7 +1,6 @@
 language: cpp
 os:
 - linux
-- osx
 addons:
   apt:
     sources:
@@ -19,12 +18,8 @@ env:
   - DEBUG_CORE_DUMP="true"
   matrix:
   - PACKAGER_NODE_VERSION="5.5" PACKAGER_ARCH="amd64" MAIN_BUILD="true"
-  - PACKAGER_NODE_VERSION="5.5" PACKAGER_ARCH="386"
 matrix:
   fast_finish: true
-  exclude:
-  - os: osx
-    env: PACKAGER_NODE_VERSION="5.5" PACKAGER_ARCH="386"
 branches:
   only:
   - "/^v[0-9]/"
@@ -34,7 +29,6 @@ before_install:
 - curl -fsS "${PACKAGER_URL}/travis_install_node.sh" -o /tmp/travis_install_node.sh
 - chmod +x /tmp/travis_install_node.sh
 - ". /tmp/travis_install_node.sh"
-- if [ "$TRAVIS_OS_NAME" == "linux" -a "$MAIN_BUILD" == "true" ]; then export NPM_PUBLISH="true"; fi
 install:
 - npm install || echo "This may failed but we don't care"
 script:
@@ -61,4 +55,3 @@ deploy:
     secure: "A6Y3NCPkZ6Kg4bsxZjCGeEmVypOBo7JJ6FsPdsy084gWv4iOykrj5ikS+PL+C4ADZ159yp0r6QFMB1sRtTLTLm551hHcGTFcJUY36Vi2zDrcSWpRdU+U3pqtKIR861oF6c2qvtY2CRy/6Ll1B6oKpD9ffaHWDo5UBsqyWVH9VCHc2Lz/xpnqE9gM8tW5UEzJB7YIoOvTZVdH6i2vZcNUOvRy6OZDC3THjy7B2oMYIl22mrbLiFhttCk27KZbEVptuf2f+3PIaXkvrEc5CAHaUqEKW809u6yi/tW1OPKFCokruHot5M4C2Pk139IZ6wWokheXUd1kdtF8q8oq2Hmvy+IwPyB2OsDylTd2nRx4IM/Ji2OxyEE+eZeCOSbf25xc/dVbGSDYbDbuA5hNdsW6j/iq+MDjZw2MKJOVVRuHaVhpSXGsfzDPti/NICbzmqqcpsGShzuiWAl5/DUSAvfbcNhb2n90SS394ncaNov4neVjVa330WDRPa1ZgV5ME9Gwfyq4DlAcnrOAlvIvUB0L5IX5Pok+cPSo9fJdin0QFPFPoLAisFanEgl6M6dJzCqDGRSrWPlkMvigH3AnjY8UA1KXqen47T23CPELAj//m4SKa+fk6YzcNi+M1Twm8ZavMDG/J5TveLod+9WMuvN9ubFI1UYAZ8LbuQDFw+0uV4Y="
   on:
     tags: true
-    condition: "$NPM_PUBLISH = true"
